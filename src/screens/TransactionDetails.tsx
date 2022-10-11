@@ -7,7 +7,7 @@ const TransactionDetails = ({ route, navigation }) => {
   const { amount } = route.params
 
   return (
-    <Screen safeArea>
+    <Screen safeArea style={styles.container}>
       <Text style={styles.text}>The amount $ {amount} is now gone.</Text>
       <Button title="Go home" onPress={() => navigation.popToTop()} />
     </Screen>

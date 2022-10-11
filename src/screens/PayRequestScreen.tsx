@@ -1,6 +1,7 @@
+import { Button, Header, Text } from '@rneui/themed'
 import { Contact } from 'expo-contacts'
 import React from 'react'
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, View } from 'react-native'
 
 import { Screen } from '../components/Screen'
 
@@ -30,45 +31,56 @@ const PayRequestScreen = ({ navigation, route }) => {
   }, [route])
 
   return (
-    <Screen>
-      <Text style={styles.text}>Pay or request money</Text>
-      <View>
-        <View style={styles.formGroup}>
-          <View style={styles.row}>
-            {user ? (
-              <View>
-                <Text>{JSON.stringify(user)}</Text>
-                <Button title="Change" onPress={() => navigation.navigate('SelectUser')} />
-                <Button title="Reset" onPress={() => setUser(null)} />
-              </View>
-            ) : (
-              <>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={onChangeUser}
-                  value={unknownUser}
-                  placeholder="Select User"
-                />
-                <Button title="From Contacts" onPress={() => navigation.navigate('SelectUser')} />
-              </>
-            )}
+    <>
+      <Header
+        centerComponent={{
+          text: 'Pay or request'
+        }}
+        leftComponent={{
+          icon: 'arrow-back',
+          color: 'inherit',
+          onPress: () => navigation.goBack()
+        }}
+      />
+      <Screen>
+        <Text h1>Pay or request money</Text>
+        <View>
+          <View style={styles.formGroup}>
+            <View style={styles.row}>
+              {user ? (
+                <View>
+                  <Text>{JSON.stringify(user)}</Text>
+                  <Button title="Change" onPress={() => navigation.navigate('SelectUser')} />
+                  <Button title="Reset" onPress={() => setUser(null)} />
+                </View>
+              ) : (
+                <>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={onChangeUser}
+                    value={unknownUser}
+                    placeholder="Select User"
+                  />
+                  <Button title="From Contacts" onPress={() => navigation.navigate('SelectUser')} />
+                </>
+              )}
+            </View>
+          </View>
+          <View style={styles.formGroup}>
+            <Text style={styles.label}>Amount:</Text>
+            <View style={styles.row}>
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeAmount}
+                value={amount}
+                keyboardType="numeric"
+              />
+            </View>
           </View>
         </View>
-        <View style={styles.formGroup}>
-          <Text style={styles.label}>Amount:</Text>
-          <View style={styles.row}>
-            <TextInput
-              style={styles.input}
-              onChangeText={onChangeAmount}
-              value={amount}
-              keyboardType="numeric"
-            />
-          </View>
-        </View>
-      </View>
-
-      <Button title="Submit" onPress={onSubmit} />
-    </Screen>
+        <Button title="Submit" onPress={onSubmit} />
+      </Screen>
+    </>
   )
 }
 

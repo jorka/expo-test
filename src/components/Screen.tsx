@@ -8,6 +8,7 @@ import { sharedStyles } from '../theme/sharedStyles'
 type Props = {
   children: React.ReactNode
   safeArea?: boolean
+  [x: string]: any
 }
 
 export const Screen = ({ safeArea = false, children, ...rest }: Props) => {

@@ -1,11 +1,9 @@
+import { Header } from '@rneui/themed'
 import React from 'react'
 import { FlatList, StyleSheet, Text } from 'react-native'
 
-// eslint-disable-next-line import/order
-import { useTest } from '../hooks/useTest'
-
-// eslint-disable-next-line import/order
 import { Screen } from '../components/Screen'
+import { useTest } from '../hooks/useTest'
 
 const TestQuery = ({ navigation }) => {
   const { data, loading, error } = useTest()
@@ -19,13 +17,25 @@ const TestQuery = ({ navigation }) => {
   }
 
   return (
-    <Screen>
-      <FlatList
-        data={data.countries}
-        renderItem={({ item }) => <Text style={styles.text}>{item.name}</Text>}
-        keyExtractor={(item) => item.name}
+    <>
+      <Header
+        centerComponent={{
+          text: 'Test Query'
+        }}
+        leftComponent={{
+          icon: 'arrow-back',
+          color: 'inherit',
+          onPress: () => navigation.goBack()
+        }}
       />
-    </Screen>
+      <Screen>
+        <FlatList
+          data={data.countries}
+          renderItem={({ item }) => <Text style={styles.text}>{item.name}</Text>}
+          keyExtractor={(item) => item.name}
+        />
+      </Screen>
+    </>
   )
 }
 
