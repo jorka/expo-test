@@ -10,7 +10,9 @@ module.exports = {
   importOrderCaseInsensitive: true,
   importOrder: [
     '<THIRD_PARTY_MODULES>',
-    // '^(.*)/components/(.*)$', // Add any folders you want to be separate
+    '^(.*)/theme/(.*)$', // Add any folders you want to be separate
+    '^(.*)/hooks/(.*)$', // Add any folders you want to be separate
+    '^(.*)/components/(.*)$', // Add any folders you want to be separate
     '^(.*)/(?!generated)(.*)/(.*)$', // Everything not generated
     '^(.*)/generated/(.*)$', // Everything generated
     '^[./]' // Absolute path imports

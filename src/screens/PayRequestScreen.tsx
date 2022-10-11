@@ -2,6 +2,8 @@ import { Contact } from 'expo-contacts'
 import React from 'react'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 
+import { Screen } from '../components/Screen'
+
 const PayRequestScreen = ({ navigation, route }) => {
   const [user, setUser] = React.useState<Contact>(null)
   const [unknownUser, setUnknownUser] = React.useState('')
@@ -23,14 +25,12 @@ const PayRequestScreen = ({ navigation, route }) => {
 
   React.useEffect(() => {
     const user = route.params?.user
-    console.log(user)
-    if (user) {
-      setUser(user)
-    }
+    if (!user) return
+    setUser(user)
   }, [route])
 
   return (
-    <View style={styles.container}>
+    <Screen>
       <Text style={styles.text}>Pay or request money</Text>
       <View>
         <View style={styles.formGroup}>
@@ -68,7 +68,7 @@ const PayRequestScreen = ({ navigation, route }) => {
       </View>
 
       <Button title="Submit" onPress={onSubmit} />
-    </View>
+    </Screen>
   )
 }
 

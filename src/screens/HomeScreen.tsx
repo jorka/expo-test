@@ -1,27 +1,27 @@
+import { Button, Text } from '@rneui/themed'
 import React from 'react'
-import { Button, StyleSheet, Text, View } from 'react-native'
+
+import { Screen } from '../components/Screen'
+import { ToggleTheme } from '../components/ToggleTheme'
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hello Const</Text>
-      <Button title="Pay or request" onPress={() => navigation.navigate('PayOrRequest')} />
-      <Button title="Test GraphQL" onPress={() => navigation.navigate('Test')} />
-    </View>
+    <Screen safeArea>
+      <Text h1>Hello Const!</Text>
+      <ToggleTheme />
+      <Button
+        type="outline"
+        title="Pay or request"
+        onPress={() => navigation.navigate('PayOrRequest')}
+      />
+      <Button
+        type="solid"
+        color="secondary"
+        title="Test GraphQL"
+        onPress={() => navigation.navigate('Test')}
+      />
+    </Screen>
   )
 }
 
 export default HomeScreen
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  text: {
-    marginBottom: 20,
-    fontSize: 30
-  }
-})

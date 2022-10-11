@@ -1,6 +1,8 @@
 import * as Contacts from 'expo-contacts'
 import React from 'react'
-import { Button, FlatList, Pressable, Text, View } from 'react-native'
+import { Button, FlatList, Pressable, Text } from 'react-native'
+
+import { Screen } from '../components/Screen'
 
 const SelectUser = ({ navigation }) => {
   const [contacts, setContacts] = React.useState([])
@@ -35,7 +37,7 @@ const SelectUser = ({ navigation }) => {
   }, [])
 
   return (
-    <View>
+    <Screen>
       <FlatList
         data={contacts}
         renderItem={({ item }) => (
@@ -44,7 +46,7 @@ const SelectUser = ({ navigation }) => {
           </Pressable>
         )}
       />
-    </View>
+    </Screen>
   )
 }
 

@@ -1,7 +1,11 @@
 import React from 'react'
 import { FlatList, StyleSheet, Text } from 'react-native'
 
+// eslint-disable-next-line import/order
 import { useTest } from '../hooks/useTest'
+
+// eslint-disable-next-line import/order
+import { Screen } from '../components/Screen'
 
 const TestQuery = ({ navigation }) => {
   const { data, loading, error } = useTest()
@@ -10,14 +14,18 @@ const TestQuery = ({ navigation }) => {
     return <Text>Loading...</Text>
   }
 
-  console.log(error)
+  if (error) {
+    return <Text>Error!</Text>
+  }
 
   return (
-    <FlatList
-      data={data.countries}
-      renderItem={({ item }) => <Text style={styles.text}>{item.name}</Text>}
-      keyExtractor={(item) => item.name}
-    />
+    <Screen>
+      <FlatList
+        data={data.countries}
+        renderItem={({ item }) => <Text style={styles.text}>{item.name}</Text>}
+        keyExtractor={(item) => item.name}
+      />
+    </Screen>
   )
 }
 

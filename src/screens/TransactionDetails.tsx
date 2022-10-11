@@ -1,14 +1,16 @@
 import React from 'react'
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text } from 'react-native'
+
+import { Screen } from '../components/Screen'
 
 const TransactionDetails = ({ route, navigation }) => {
   const { amount } = route.params
 
   return (
-    <View style={styles.container}>
+    <Screen safeArea>
       <Text style={styles.text}>The amount $ {amount} is now gone.</Text>
       <Button title="Go home" onPress={() => navigation.popToTop()} />
-    </View>
+    </Screen>
   )
 }
 
