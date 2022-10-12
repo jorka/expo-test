@@ -2,18 +2,20 @@ import { Layout } from '@ui-kitten/components'
 import React from 'react'
 import { Button, StyleSheet, Text } from 'react-native'
 
-const TransactionDetails = ({ route, navigation }) => {
+import { PageScreen } from '../components/PageScreen'
+
+export const TransactionDetails = ({ route, navigation }) => {
   const { amount } = route.params
 
   return (
-    <Layout>
-      <Text style={styles.text}>The amount $ {amount} is now gone.</Text>
-      <Button title="Go home" onPress={() => navigation.popToTop()} />
-    </Layout>
+    <PageScreen modal>
+      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={styles.text}>The amount $ {amount} is now gone.</Text>
+        <Button title="Go home" onPress={() => navigation.popToTop()} />
+      </Layout>
+    </PageScreen>
   )
 }
-
-export default TransactionDetails
 
 const styles = StyleSheet.create({
   container: {

@@ -1,13 +1,19 @@
-import { Layout, List, ListItem, Text } from '@ui-kitten/components'
+import { Button, Layout, List, ListItem, Text, TopNavigation } from '@ui-kitten/components'
 import React from 'react'
 
+import { PageScreen } from '../components/PageScreen'
 import { useTest } from '../hooks/useTest'
 
-const TestQuery = ({ navigation }) => {
+export const TestQuery = ({ navigation }) => {
   const { data, loading, error } = useTest()
 
   return (
-    <>
+    <PageScreen>
+      <TopNavigation
+        title="Test Query"
+        alignment="center"
+        accessoryLeft={<Button onPress={() => navigation.popToTop()}>{'<'}</Button>}
+      />
       <Layout>
         {loading ? (
           <Text>Loading...</Text>
@@ -21,8 +27,6 @@ const TestQuery = ({ navigation }) => {
           />
         )}
       </Layout>
-    </>
+    </PageScreen>
   )
 }
-
-export default TestQuery

@@ -1,18 +1,32 @@
 import { Button } from '@ui-kitten/components'
 import React from 'react'
 import { View } from 'react-native'
+import Toast from 'react-native-toast-message'
 
-import { ThemeContext } from '../context/theme'
+import { useThemeContext } from '../context/ThemeContext'
 
-const ToggleTheme = () => {
-  const { theme, toggleTheme } = React.useContext(ThemeContext)
+const ToggleThemeMode = () => {
+  const { themeMode, toggleThemeMode } = useThemeContext()
+
+  const showToast = () => {
+    Toast.show({
+      type: 'info',
+      text1: 'Theme changed'
+    })
+  }
+
+  const handleToggleThemeMode = () => {
+    toggleThemeMode()
+    showToast()
+  }
+
   return (
     <View>
-      <Button onPress={toggleTheme}>
-        {theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+      <Button onPress={handleToggleThemeMode}>
+        {themeMode === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
       </Button>
     </View>
   )
 }
 
-export default ToggleTheme
+export default ToggleThemeMode

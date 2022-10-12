@@ -1,10 +1,11 @@
-import { Button, Input, Layout, Text } from '@ui-kitten/components'
+import { Button, Input, Layout, Text, TopNavigation } from '@ui-kitten/components'
 import { Contact } from 'expo-contacts'
-import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { View } from 'react-native'
 
-const PayRequestScreen = ({ navigation, route }) => {
+import { PageScreen } from '../components/PageScreen'
+
+export const SendRequest = ({ navigation, route }) => {
   const [user, setUser] = React.useState<Contact>(null)
   const [unknownUser, setUnknownUser] = React.useState('')
   const [amount, setAmount] = React.useState('')
@@ -30,12 +31,16 @@ const PayRequestScreen = ({ navigation, route }) => {
   }, [route])
 
   return (
-    <>
-      <StatusBar style="inverted" />
+    <PageScreen>
+      <TopNavigation
+        title="Send or request"
+        alignment="center"
+        accessoryLeft={<Button onPress={() => navigation.popToTop()}>{'<'}</Button>}
+      />
 
-      <Layout style={{ flex: 1, justifyContent: 'center' }}>
+      <Layout style={{ flex: 1, justifyContent: 'center', paddingLeft: 20, paddingRight: 20 }}>
         <View>
-          <Text category="h1">Pay or request money</Text>
+          <Text category="h1">Send or request</Text>
           <View>
             <View>
               <View>
@@ -61,17 +66,19 @@ const PayRequestScreen = ({ navigation, route }) => {
               </View>
             </View>
             <View>
-              <Text>Amount:</Text>
               <View>
-                <Input onChangeText={onChangeAmount} value={amount} keyboardType="numeric" />
+                <Input
+                  onChangeText={onChangeAmount}
+                  value={amount}
+                  keyboardType="numeric"
+                  label="Amount"
+                />
               </View>
             </View>
           </View>
           <Button onPress={onSubmit}>Submit</Button>
         </View>
       </Layout>
-    </>
+    </PageScreen>
   )
 }
-
-export default PayRequestScreen

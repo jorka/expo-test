@@ -3,11 +3,13 @@ import * as Contacts from 'expo-contacts'
 import React from 'react'
 import { Button } from 'react-native'
 
-const SelectUser = ({ navigation }) => {
+import { PageScreen } from '../components/PageScreen'
+
+export const SelectUser = ({ navigation }) => {
   const [contacts, setContacts] = React.useState([])
 
   const onSelectUser = (user: Contacts.Contact) => {
-    navigation.navigate('PayOrRequest', {
+    navigation.navigate('SendRequest', {
       user
     })
   }
@@ -15,7 +17,7 @@ const SelectUser = ({ navigation }) => {
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button onPress={() => navigation.navigate('PayOrRequest')} title="Cancel" />
+        <Button onPress={() => navigation.navigate('SendRequest')} title="Cancel" />
       )
     })
   }, [navigation])
@@ -36,21 +38,21 @@ const SelectUser = ({ navigation }) => {
   }, [])
 
   return (
-    <Layout>
-      <Text category="h1">Select from contacts</Text>
-      <List
-        data={contacts}
-        renderItem={({ item }) => (
-          <ListItem
-            title={item.name}
-            description={item.phoneNumbers[0].number}
-            onPress={() => onSelectUser(item)}
-          />
-        )}
-        ItemSeparatorComponent={Divider}
-      />
-    </Layout>
+    <PageScreen modal>
+      <Layout style={{ flex: 1, paddingLeft: 20, paddingRight: 20 }}>
+        <Text category="h1">Select from contacts</Text>
+        <List
+          data={contacts}
+          renderItem={({ item }) => (
+            <ListItem
+              title={item.name}
+              description={item.phoneNumbers[0].number}
+              onPress={() => onSelectUser(item)}
+            />
+          )}
+          ItemSeparatorComponent={Divider}
+        />
+      </Layout>
+    </PageScreen>
   )
 }
-
-export default SelectUser
