@@ -1,9 +1,8 @@
-import { Button, Header, Text } from '@rneui/themed'
+import { Button, Input, Layout, Text } from '@ui-kitten/components'
 import { Contact } from 'expo-contacts'
+import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { StyleSheet, TextInput, View } from 'react-native'
-
-import { Screen } from '../components/Screen'
+import { StyleSheet, View } from 'react-native'
 
 const PayRequestScreen = ({ navigation, route }) => {
   const [user, setUser] = React.useState<Contact>(null)
@@ -32,90 +31,47 @@ const PayRequestScreen = ({ navigation, route }) => {
 
   return (
     <>
-      <Header
-        centerComponent={{
-          text: 'Pay or request'
-        }}
-        leftComponent={{
-          icon: 'arrow-back',
-          color: 'inherit',
-          onPress: () => navigation.goBack()
-        }}
-      />
-      <Screen>
-        <Text h1>Pay or request money</Text>
+      <StatusBar style="inverted" />
+
+      <Layout style={{ flex: 1, justifyContent: 'center' }}>
         <View>
-          <View style={styles.formGroup}>
-            <View style={styles.row}>
-              {user ? (
-                <View>
-                  <Text>{JSON.stringify(user)}</Text>
-                  <Button title="Change" onPress={() => navigation.navigate('SelectUser')} />
-                  <Button title="Reset" onPress={() => setUser(null)} />
-                </View>
-              ) : (
-                <>
-                  <TextInput
-                    style={styles.input}
-                    onChangeText={onChangeUser}
-                    value={unknownUser}
-                    placeholder="Select User"
-                  />
-                  <Button title="From Contacts" onPress={() => navigation.navigate('SelectUser')} />
-                </>
-              )}
+          <Text category="h1">Pay or request money</Text>
+          <View>
+            <View>
+              <View>
+                {user ? (
+                  <View>
+                    <Text>{JSON.stringify(user)}</Text>
+                    <Button onPress={() => navigation.navigate('SelectUser')}>Change</Button>
+                    <Button appearance="ghost" onPress={() => setUser(null)}>
+                      Reset
+                    </Button>
+                  </View>
+                ) : (
+                  <>
+                    <Input
+                      onChangeText={onChangeUser}
+                      value={unknownUser}
+                      placeholder="Select User"
+                      label="Select User"
+                    />
+                    <Button onPress={() => navigation.navigate('SelectUser')}>From Contacts</Button>
+                  </>
+                )}
+              </View>
+            </View>
+            <View>
+              <Text>Amount:</Text>
+              <View>
+                <Input onChangeText={onChangeAmount} value={amount} keyboardType="numeric" />
+              </View>
             </View>
           </View>
-          <View style={styles.formGroup}>
-            <Text style={styles.label}>Amount:</Text>
-            <View style={styles.row}>
-              <TextInput
-                style={styles.input}
-                onChangeText={onChangeAmount}
-                value={amount}
-                keyboardType="numeric"
-              />
-            </View>
-          </View>
+          <Button onPress={onSubmit}>Submit</Button>
         </View>
-        <Button title="Submit" onPress={onSubmit} />
-      </Screen>
+      </Layout>
     </>
   )
 }
 
 export default PayRequestScreen
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-    justifyContent: 'flex-start'
-  },
-  text: {
-    fontSize: 30,
-    marginBottom: 20
-  },
-  input: {
-    height: 40,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 5,
-    flex: 1,
-    flexShrink: 0
-  },
-  formGroup: {
-    marginBottom: 20,
-    flexShrink: 0
-  },
-  label: {
-    fontSize: 14
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 5
-  }
-})

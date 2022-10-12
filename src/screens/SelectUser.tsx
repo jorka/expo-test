@@ -1,8 +1,7 @@
+import { Divider, Layout, List, ListItem, Text } from '@ui-kitten/components'
 import * as Contacts from 'expo-contacts'
 import React from 'react'
-import { Button, FlatList, Pressable, Text } from 'react-native'
-
-import { Screen } from '../components/Screen'
+import { Button, FlatList, Pressable } from 'react-native'
 
 const SelectUser = ({ navigation }) => {
   const [contacts, setContacts] = React.useState([])
@@ -37,16 +36,20 @@ const SelectUser = ({ navigation }) => {
   }, [])
 
   return (
-    <Screen>
-      <FlatList
+    <Layout>
+      <Text category="h1">Select from contacts</Text>
+      <List
         data={contacts}
         renderItem={({ item }) => (
-          <Pressable onPress={() => onSelectUser(item)}>
-            <Text>{item.name}</Text>
-          </Pressable>
+          <ListItem
+            title={item.name}
+            description={item.phoneNumbers[0].number}
+            onPress={() => onSelectUser(item)}
+          />
         )}
+        ItemSeparatorComponent={Divider}
       />
-    </Screen>
+    </Layout>
   )
 }
 

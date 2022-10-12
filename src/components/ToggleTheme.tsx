@@ -1,12 +1,18 @@
-import { Button, useThemeMode } from '@rneui/themed'
+import { Button } from '@ui-kitten/components'
 import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 
-export const ToggleTheme = () => {
-  const { mode, setMode } = useThemeMode()
+import { ThemeContext } from '../context/theme'
+
+const ToggleTheme = () => {
+  const { theme, toggleTheme } = React.useContext(ThemeContext)
   return (
-    <Button
-      onPress={() => setMode(mode === 'light' ? 'dark' : 'light')}
-      title={mode === 'light' ? 'Dark' : 'Light'}
-    />
+    <View>
+      <Button onPress={toggleTheme}>
+        {theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+      </Button>
+    </View>
   )
 }
+
+export default ToggleTheme

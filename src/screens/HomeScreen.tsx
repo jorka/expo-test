@@ -1,26 +1,16 @@
-import { Button, Text } from '@rneui/themed'
+import { Button, Layout, Text } from '@ui-kitten/components'
 import React from 'react'
 
-import { Screen } from '../components/Screen'
-import { ToggleTheme } from '../components/ToggleTheme'
+import ToggleTheme from '../components/ToggleTheme'
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <Screen safeArea>
-      <Text h1>Hello Const!</Text>
+    <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text category="h1">Hello Const!</Text>
       <ToggleTheme />
-      <Button
-        type="outline"
-        title="Pay or request"
-        onPress={() => navigation.navigate('PayOrRequest')}
-      />
-      <Button
-        type="solid"
-        color="secondary"
-        title="Test GraphQL"
-        onPress={() => navigation.navigate('Test')}
-      />
-    </Screen>
+      <Button onPress={() => navigation.navigate('PayOrRequest')}>Pay or request</Button>
+      <Button onPress={() => navigation.navigate('Test')}>Test GraphQL</Button>
+    </Layout>
   )
 }
 
