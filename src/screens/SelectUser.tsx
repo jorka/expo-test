@@ -1,7 +1,7 @@
 import { Divider, Layout, List, ListItem, Text } from '@ui-kitten/components'
 import * as Contacts from 'expo-contacts'
 import React from 'react'
-import { Button, FlatList, Pressable } from 'react-native'
+import { Button } from 'react-native'
 
 const SelectUser = ({ navigation }) => {
   const [contacts, setContacts] = React.useState([])

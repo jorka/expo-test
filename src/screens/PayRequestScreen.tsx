@@ -2,7 +2,7 @@ import { Button, Input, Layout, Text } from '@ui-kitten/components'
 import { Contact } from 'expo-contacts'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 const PayRequestScreen = ({ navigation, route }) => {
   const [user, setUser] = React.useState<Contact>(null)
