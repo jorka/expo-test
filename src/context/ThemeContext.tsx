@@ -1,6 +1,7 @@
 import * as eva from '@eva-design/eva'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ApplicationProvider } from '@ui-kitten/components'
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
+import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import React from 'react'
 
 export enum ThemeMode {
@@ -52,6 +53,7 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={value}>
+      <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva[themeMode]}>
         {children}
       </ApplicationProvider>

@@ -1,7 +1,6 @@
-import { Divider, Layout, List, ListItem, Text } from '@ui-kitten/components'
+import { Button, Divider, Layout, List, ListItem, TopNavigation } from '@ui-kitten/components'
 import * as Contacts from 'expo-contacts'
 import React from 'react'
-import { Button } from 'react-native'
 
 import { PageScreen } from '../components/PageScreen'
 
@@ -15,19 +14,16 @@ export const SelectUser = ({ navigation }) => {
   }
 
   React.useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Button onPress={() => navigation.navigate('SendRequest')} title="Cancel" />
-      )
-    })
-  }, [navigation])
-
-  React.useEffect(() => {
     ;(async () => {
       const { status } = await Contacts.requestPermissionsAsync()
       if (status === 'granted') {
         const { data } = await Contacts.getContactsAsync({
-          fields: [Contacts.Fields.Emails, Contacts.Fields.PhoneNumbers, Contacts.Fields.Name]
+          fields: [
+            Contacts.Fields.Emails,
+            Contacts.Fields.PhoneNumbers,
+            Contacts.Fields.Name,
+            Contacts.Fields.Image
+          ]
         })
 
         if (data.length > 0) {
@@ -39,14 +35,23 @@ export const SelectUser = ({ navigation }) => {
 
   return (
     <PageScreen modal>
-      <Layout style={{ flex: 1, paddingLeft: 20, paddingRight: 20 }}>
-        <Text category="h1">Select from contacts</Text>
+      <TopNavigation
+        title="Select contact"
+        alignment="center"
+        accessoryRight={
+          <Button appearance="ghost" onPress={() => navigation.navigate('SendRequest')}>
+            Cancel
+          </Button>
+        }
+      />
+      <Divider />
+      <Layout style={{ flex: 1 }}>
         <List
           data={contacts}
           renderItem={({ item }) => (
             <ListItem
               title={item.name}
-              description={item.phoneNumbers[0].number}
+              description={item.phoneNumbers ? item.phoneNumbers[0].number : ''}
               onPress={() => onSelectUser(item)}
             />
           )}

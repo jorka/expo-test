@@ -20,6 +20,7 @@ export const Home = ({ navigation }) => {
           <ToggleTheme />
           <Button onPress={() => navigation.navigate('SendRequest')}>Pay or request</Button>
           <Button onPress={() => navigation.navigate('Test')}>Test GraphQL</Button>
+          <Button onPress={() => navigation.navigate('TestWebview')}>Test Webview</Button>
         </Layout>
       </PageScreen>
     </>

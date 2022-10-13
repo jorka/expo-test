@@ -1,4 +1,13 @@
-import { Button, Input, Layout, Text, TopNavigation } from '@ui-kitten/components'
+import {
+  Button,
+  Icon,
+  IconElement,
+  Input,
+  Layout,
+  Text,
+  TopNavigation,
+  TopNavigationAction
+} from '@ui-kitten/components'
 import { Contact } from 'expo-contacts'
 import React from 'react'
 import { View } from 'react-native'
@@ -10,6 +19,16 @@ export const SendRequest = ({ navigation, route }) => {
   const [unknownUser, setUnknownUser] = React.useState('')
   const [amount, setAmount] = React.useState('')
 
+  type BackIconProps = IconElement['props']
+
+  const inputAmountRef = React.useRef<Input>(null)
+
+  const BackIcon = (props: BackIconProps) => <Icon {...props} name="arrow-back" />
+
+  const BackAction = () => (
+    <TopNavigationAction icon={BackIcon} onPress={() => navigation.popToTop()} />
+  )
+
   const onChangeAmount = (value) => {
     setAmount(value)
   }
@@ -20,7 +39,8 @@ export const SendRequest = ({ navigation, route }) => {
 
   const onSubmit = () => {
     navigation.push('TransactionDetails', {
-      amount
+      amount,
+      user: user || unknownUser
     })
   }
 
@@ -32,11 +52,7 @@ export const SendRequest = ({ navigation, route }) => {
 
   return (
     <PageScreen>
-      <TopNavigation
-        title="Send or request"
-        alignment="center"
-        accessoryLeft={<Button onPress={() => navigation.popToTop()}>{'<'}</Button>}
-      />
+      <TopNavigation title="Send or request" alignment="center" accessoryLeft={BackAction} />
 
       <Layout style={{ flex: 1, justifyContent: 'center', paddingLeft: 20, paddingRight: 20 }}>
         <View>
@@ -59,24 +75,31 @@ export const SendRequest = ({ navigation, route }) => {
                       value={unknownUser}
                       placeholder="Select User"
                       label="Select User"
+                      returnKeyType="next"
+                      onSubmitEditing={() => {
+                        inputAmountRef.current.focus()
+                      }}
                     />
-                    <Button onPress={() => navigation.navigate('SelectUser')}>From Contacts</Button>
+                    <Button onPress={() => navigation.navigate('SelectUser')}>Select User</Button>
                   </>
                 )}
               </View>
             </View>
             <View>
-              <View>
-                <Input
-                  onChangeText={onChangeAmount}
-                  value={amount}
-                  keyboardType="numeric"
-                  label="Amount"
-                />
-              </View>
+              <Input
+                ref={inputAmountRef}
+                onChangeText={onChangeAmount}
+                value={amount}
+                placeholder="Amount"
+                label="Amount"
+                keyboardType="decimal-pad"
+                returnKeyType="done"
+              />
             </View>
           </View>
-          <Button onPress={onSubmit}>Submit</Button>
+          <View>
+            <Button onPress={onSubmit}>Submit</Button>
+          </View>
         </View>
       </Layout>
     </PageScreen>

@@ -9,7 +9,9 @@ import { Home } from './screens/Home'
 import { SelectUser } from './screens/SelectUser'
 import { SendRequest } from './screens/SendRequest'
 import { TestQuery } from './screens/TestQuery'
+import { TestWebview } from './screens/TestWebview'
 import { TransactionDetails } from './screens/TransactionDetails'
+import { toastConfig } from './theme/toast-config'
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -31,6 +33,7 @@ export default function App() {
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Test" component={TestQuery} />
                 <Stack.Screen name="SendRequest" component={SendRequest} />
+                <Stack.Screen name="TestWebview" component={TestWebview} />
                 <Stack.Screen
                   name="SelectUser"
                   component={SelectUser}
@@ -50,7 +53,7 @@ export default function App() {
           </SafeAreaProvider>
         </ThemeProvider>
       </ApolloProvider>
-      <Toast position="bottom" />
+      <Toast position="bottom" config={toastConfig} />
     </>
   )
 }

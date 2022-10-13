@@ -25,8 +25,7 @@ export const PageScreen = ({ children, modal = false, ...rest }: Props) => {
       <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor:
-            themeMode === 'light' ? theme['color-basic-100'] : theme['color-basic-800']
+          backgroundColor: theme['background-basic-color-1']
         }}
         {...rest}
       >
